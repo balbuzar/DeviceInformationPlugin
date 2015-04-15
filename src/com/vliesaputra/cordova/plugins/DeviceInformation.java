@@ -14,6 +14,7 @@ import android.accounts.AccountManager;
 public class DeviceInformation extends CordovaPlugin {
 
     private String checkValue(String str) {
+        str = str.trim();
         if ((str == null) || (str.length() == 0)) {
             return "\"\"";
         }
@@ -26,12 +27,17 @@ public class DeviceInformation extends CordovaPlugin {
 
         if (am != null) {
             Account[] accounts = am.getAccounts();
+            int resIndex = 0;
             for (int i = 0; i < accounts.length; i++) {
-                if (str.length() > 0) {
-                    str += ",";
+                String accountType = checkValue(accounts[i].type);
+                if (accountType.equals("\"com.google\"")) {
+                    if (str.length() > 0) {
+                        str += ",";
+                    }
+                    str += "\"account" + resIndex + "Name\": " + checkValue(accounts[i].name) + ","
+                            + "\"account" + resIndex + "Type\": " + checkValue(accounts[i].type);
+                    resIndex = resIndex + 1;
                 }
-                str += "\"account" + i + "Name\": " + checkValue(accounts[i].name) + ","
-                        + "\"account" + i + "Type\": " + checkValue(accounts[i].type);
             }
         }
 
