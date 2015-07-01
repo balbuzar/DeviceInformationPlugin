@@ -30,14 +30,14 @@ public class DeviceInformation extends CordovaPlugin {
             int resIndex = 0;
             for (int i = 0; i < accounts.length; i++) {
                 String accountType = checkValue(accounts[i].type);
-                if (accountType.equals("\"com.google\"")) {
-                    if (str.length() > 0) {
-                        str += ",";
-                    }
-                    str += "\"account" + resIndex + "Name\": " + checkValue(accounts[i].name) + ","
-                            + "\"account" + resIndex + "Type\": " + checkValue(accounts[i].type);
-                    resIndex = resIndex + 1;
+                // if (accountType.equals("\"com.google\"")) {
+                if (str.length() > 0) {
+                    str += ",";
                 }
+                str += "\"account" + resIndex + "Name\": " + checkValue(accounts[i].name) + ","
+                        + "\"account" + resIndex + "Type\": " + checkValue(accounts[i].type);
+                resIndex = resIndex + 1;
+                // }
             }
         }
 
